@@ -6,7 +6,7 @@
 # --- Required options --- #
 
 # Name of website
-title: GSoC'22 Blog
+title: MetaXploited
 
 # Your name to show in the footer
 author: Beleswar Prasad Padhi
@@ -18,7 +18,7 @@ navbar-links:
   Resources:
     - Beautiful Jekyll: "https://beautifuljekyll.com"
     - Learn markdown: "https://www.markdowntutorial.com/"
-  Beleswar's home: "https://3v3ryone.github.io"
+  #Beleswar's home: "https://3v3ryone.github.io"
 
 # --- Logo --- #
 
@@ -82,7 +82,7 @@ share-links-active:
 
 # How to display the link to your website in the footer
 # Remove this if you don't want a link in the footer
-url-pretty: "3v3ryone.github.io/gsoc"
+url-pretty: "MetaXploited"
 
 # Excerpt word length - Truncate the excerpt of each post on the feed page to the specified number of words
 excerpt_length: 50
