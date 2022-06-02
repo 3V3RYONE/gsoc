@@ -6,7 +6,7 @@
 # --- Required options --- #
 
 # Name of website
-title: MetaXploited
+title: VerboseLogins
 
 # Your name to show in the footer
 author: Beleswar Prasad Padhi
@@ -83,7 +83,7 @@ share-links-active:
 
 # How to display the link to your website in the footer
 # Remove this if you don't want a link in the footer
-url-pretty: "MetaXploited"
+url-pretty: "VerboseLogins"
 
 # Excerpt word length - Truncate the excerpt of each post on the feed page to the specified number of words
 excerpt_length: 50
