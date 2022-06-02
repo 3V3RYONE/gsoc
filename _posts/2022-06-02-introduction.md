@@ -4,7 +4,7 @@ title: Introductory Post
 subtitle: A basic introductory post to keep the site alive, until I make the real blog post
 cover-img: /assets/img/introductionCoverpic.jpg
 share-img: /assets/img/introductionCoverpic.jpg
-thumbnail-img: /assets/img/metasploit-logo.png
+thumbnail-img: /assets/img/metasploit_logo.png
 tags: [GSoC, intro, development, Metasploit]
 ---
 
