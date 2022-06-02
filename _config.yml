@@ -16,8 +16,9 @@ author: Beleswar Prasad Padhi
 navbar-links:
   About Me: "aboutme"
   Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
+    - Google Summer of Code: "https://summerofcode.withgoogle.com/about"
+    - Metasploit Unleashed course: "https://www.offensive-security.com/metasploit-unleashed/"
+    - Metasploit Codebase: "https://github.com/rapid7/metasploit-framework"
   #Beleswar's home: "https://3v3ryone.github.io"
 
 # --- Logo --- #
