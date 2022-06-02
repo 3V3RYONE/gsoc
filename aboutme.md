@@ -1,16 +1,11 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: What I am full of
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+Hii there! I'm Beleswar. I am an undergrad Computer Science student at Vellore Institute of Technology, Chennai. I am currently working on 'Implementing **HTTP-Trace** Enabled Login Scanners' project for **Metasploit** Organization under **Google Summer of Code'22**. I am a keen enthusiast of AI, Cybersecurity and firmly interested in core Computer Science technologies like OS, Networks, DBMS.  
+  
+I like to contribute to Open Source projects and fix bugs whenever I get time! So feel free to reach out to me for collaborating on any Open Source projects! This Blog lives to recite my Journey throughout the Google Summer of Code program! Apart from that, I love learning about theoretical physics, paradox and the wonder of nature.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
-
-What else do you need?
-
-### My story
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+You can reach me below. Thanks for stopping by! :)
