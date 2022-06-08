@@ -30,11 +30,11 @@ While investigating the related codebase of my HTTP-Trace project, we found out 
   
 * **Allowing HTTP-Tracing for both HTTP-Client and HTTP-Server:**  
   
-![serverClientImage](../assets/img/secondPostServerClient.png)
+| ![serverClientImage](../assets/img/secondPostServerClient.png) |
   
 |:--:|  
     
-|<b>Image showing both HTTP Client and HTTP Server present in Rex Library</b>|
+| <b>Image showing both HTTP Client and HTTP Server present in Rex Library</b>|
   
 As I have mentioned in my proposal, my original solution for implementing HTTP-Trace feature was to include it in the [Rex::Proto::Http::Client](https://github.com/rapid7/metasploit-framework/blob/e957e0ea807c52d960cb8cf5b7c56fc0bee884d8/lib/rex/proto/http/client.rb) class. It is because all the modules like Auxiliary, Exploits, Gather Modules etc. make a call to the **Rex::Proto::Http::Client** class for sending the requests to the server and receive the responses back. **This solution will allow any client using HTTP to trace the connections but it does not allow the servers to trace connections.** Thus, it is rather effective to create a wrapping class (which both Rex::Proto::Http::Server and Rex::Proto::Http::Client will import), where the HTTP-Trace code will be implemented, than implementing it specifically in the **Rex::Proto::Http::Client**. This will avoid code duplication and allow both clients and servers to use this HTTP-Trace functionality.  
   
