@@ -16,15 +16,11 @@ The week's work was divided into three tasks primarily. All of the tasks had spe
   
 ## Task 1 : Analyzing Library Code  
   
-WORK IN PROGRESS.. JUST ADDED A SUMMARY OF THIS TASK.. Have some commitments rn, will add full documentation to this task once i am back. But other tasks have been fully documented below. :(  
-  
-WIP  
+WORK IN PROGRESS.. JUST ADDED A SUMMARY OF THIS TASK.. Have some commitments rn, will add full documentation to this task once i am back in weekend. But other tasks have been fully documented below. :(  
   
 There are particularly three library files of interest with respect to this project: **Exploit::Remote::HttpClient**, **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server**.  
   
-Summary : Results of analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the method.  
-  
-WIP  
+Summary : Results of analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the method.   
   
 ## Task 2 : Understanding Flow of Control of Methods  
   
