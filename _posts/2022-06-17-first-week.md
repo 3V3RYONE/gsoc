@@ -1,7 +1,7 @@
 ---
 layout: post
-title: GSoC Week 1
-subtitle: Analyzing Library Code
+title: GSoC Coding: Week 1
+subtitle: Analyzing related Library Code
 cover-img: /assets/img/coverSecondPost.jpeg
 share-img: /assets/img/coverSecondPost.jpeg
 thumbnail-img: /assets/img/thirdPostThumbnail.png
