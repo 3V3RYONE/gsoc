@@ -20,7 +20,7 @@ There are particularly four library files of interest with respect to this proje
   
 In the process of researching through the codebase, I found that the Exploit::Remote::HttpClient is reliant on the Rex::Proto::Http::Client for making requests to the server and obtaining back the responses. In the same way, Exploit::Remote::HttpServer is reliant on the Rex::Proto::Http::Server class for sending responses back to the Client. Thus, the Exploit class does not transmit requests on it's own, rather it makes a call to the methods of Rex class for doing so. Thus, our plan of creating the HTTP-Trace wrapper class for Rex::Proto::Http::Client and Rex::Proto::Http::Server will also serve the Exploit::Remote::Http::Client and Exploit::Remote::Http::Server with HTTP-Trace features since the later are reliant on the former.  
   
-| ![codeExampleClientDependency](../assets/img/clientReliant.png) |  
+| ![codeExampleClientDependency](../assets/img/clientRelia.png) |  
 | Code Example showing that _send_request_raw()_ method in [Exploit::Remote::HttpClient](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/exploit/remote/http_client.rb#L356-L406) is reliant on _send_recv()_ method in [Rex::Proto::Http::Client](https://github.com/rapid7/metasploit-framework/blob/98b2234cab8cbb60f6907a268f65e69de7b7aae7/lib/rex/proto/http/client.rb#L146-L154) |
   
 | ![codeExampleServerDependency](../assets/img/serverReliant.png) |  
