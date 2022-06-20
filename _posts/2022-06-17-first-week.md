@@ -69,10 +69,13 @@ Now that we know where we have to make the function call for HTTP-Trace, we have
   
   
 | ![sampleMethodCallImage](../assets/img/sampleCallMethod.png) |  
-| <b> Image showing a sample method call to HTTP-Trace method with parameters from the `_send_recv` method </b>|  
+| <b> Image showing a sample method call to HTTP-Trace method with parameters from the `_send_recv()` method for HTTP Client </b>|  
+  
+| ![sampleMethodCallImage](../assets/img/sampleCallMethodServer.png) |  
+| <b> Image showing a sample method call to HTTP-Trace method with parameters from the `send_response()` method for HTTP Server </b>|  
   
 ## Conclusion  
   
-Its a wrap for Week 1 :)! The research work in this week was very informative, which clarified the location and parameters of the function call to HTTP-Trace method. Thus, our next plan in Week 2 is to actually create the wrapper class in Rex::Proto::Http library and define the HTTP-Trace method with the above parameters.  
+Its a wrap for Week 1 :) The research work in this week was very informative, which clarified the location and parameters of the function call to HTTP-Trace method. Thus, our next plan in Week 2 is to actually create the wrapper class in Rex::Proto::Http library and define the HTTP-Trace method with the above parameters.  
   
 Catch you up in the second week! :)
