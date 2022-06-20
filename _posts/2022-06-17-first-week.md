@@ -16,9 +16,7 @@ The week's work was divided into three tasks primarily. All of the tasks had spe
   
 ## Task 1 : Analyzing Library Code  
   
-WORK IN PROGRESS.. JUST ADDED A SUMMARY OF THIS TASK.. Have some commitments rn, will add full documentation to this task once i am back in weekend. But other tasks have been fully documented below. :(  
-  
-There are particularly three library files of interest with respect to this project: **Exploit::Remote::HttpClient**, **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server**.  
+There are particularly four library files of interest with respect to this project: **Exploit::Remote::HttpClient**, **Exploit::Remote::HttpServer**, **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server**. The Rex class is a central class which provides connection and configuration services for the HTTP Client (through Rex::Proto::Http::Client) and the HTTP Server (through Rex::Proto::Http::Server) to all the modules in the framework (like Auxiliary, Exploits, Encoders, Payloads etc). On the other hand, the Exploit class provides HTTP Client (Exploit::Remote::HttpClient) and HTTP Server (through Exploit::Remote::HttpServer) services only to the __exploit modules__ which fall under it.
   
 Summary : Results of analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the method.   
   
