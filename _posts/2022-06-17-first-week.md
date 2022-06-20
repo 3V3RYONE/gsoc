@@ -16,13 +16,21 @@ The week's work was divided into three tasks primarily. All of the tasks had spe
   
 ## Task 1 : Analyzing Library Code  
   
-There are particularly four library files of interest with respect to this project: **Rex::Proto::Http::Client**, **Rex::Proto::Http::Server**, **Exploit::Remote::HttpClient** and **Exploit::Remote::HttpServer**. The Rex class is a central class which provides connection and configuration services for the HTTP Client (through Rex::Proto::Http::Client) and the HTTP Server (through Rex::Proto::Http::Server) to all the modules in the framework (like Auxiliary, Exploits, Encoders, Payloads etc). On the other hand, the Exploit class provides HTTP Client (through Exploit::Remote::HttpClient) and HTTP Server (through Exploit::Remote::HttpServer) services only to the __exploit modules__ which fall under it.  
+There are particularly four library files of interest with respect to this project: **Rex::Proto::Http::Client**, **Rex::Proto::Http::Server**, **Exploit::Remote::HttpClient** and **Exploit::Remote::HttpServer**. The Rex class is a central class which provides connection and configuration services for the HTTP Client (through Rex::Proto::Http::Client) and the HTTP Server (through Rex::Proto::Http::Server) to all the modules in the framework (like Auxiliary, Exploits, Encoders, Payloads etc). On the other hand, the Exploit class provides HTTP Client services (through Exploit::Remote::HttpClient) and HTTP Server services (through Exploit::Remote::HttpServer) only to the _exploit modules_ which fall under it.  
+  
+In the process of researching through the codebase, I found that the Exploit::Remote::HttpClient is reliant on the Rex::Proto::Http::Client for making requests to the server and obtaining back the responses. In the same way, Exploit::Remote::HttpServer is reliant on the Rex::Proto::Http::Server class for sending responses back to the Client. Thus, the Exploit class does not transmit requests on it's own, rather it makes a call to the methods of Rex class for doing so. Thus, our plan of creating the HTTP-Trace wrapper class for Rex::Proto::Http::Client and Rex::Proto::Http::Server will also serve the Exploit::Remote::Http::Client and Exploit::Remote::Http::Server with HTTP-Trace features since the later are reliant on the former.  
+  
+| ![codeExampleClientDependency]() |  
+| |
+  
+| ![codeExampleServerDependency]() |  
+| |  
   
 While analyzing the Client files, i.e Rex::Proto::Http::Client and Exploit::Remote::HttpClient, it was marked that the HTTP Client sends different types of requests (e.g. Cookies, follow redirect etc.) to the server and grabs the response. Thus, it is essential to track both requests and responses on the Client side through HTTP-Trace.  
   
 On the other hand, analyzing the Server files, i.e Rex::Proto::Http::Server and Exploit::Remote::HttpServer, showed that the HTTP Server just sends different types of responses (e.g. 404 error, 302 redirect etc.) to the client through it's __send_response()__ method. Thus, it is just sufficient to track only responses on the Server side through HTTP-Trace.
   
-Summary : Results of analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the method.   
+Thus, results of the analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the HTTP-Trace method, which are listed in the TASK 3 section.   
   
 ## Task 2 : Understanding Flow of Control of Methods  
   
