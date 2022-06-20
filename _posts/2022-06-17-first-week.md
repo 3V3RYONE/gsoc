@@ -20,7 +20,7 @@ There are particularly four library files of interest with respect to this proje
   
 In the process of researching through the codebase, I found that the Exploit::Remote::HttpClient is reliant on the Rex::Proto::Http::Client for making requests to the server and obtaining back the responses. In the same way, Exploit::Remote::HttpServer is reliant on the Rex::Proto::Http::Server class for sending responses back to the Client. Thus, the Exploit class does not transmit requests on it's own, rather it makes a call to the methods of Rex class for doing so. Thus, our plan of creating the HTTP-Trace wrapper class for Rex::Proto::Http::Client and Rex::Proto::Http::Server will also serve the Exploit::Remote::Http::Client and Exploit::Remote::Http::Server with HTTP-Trace features since the later are reliant on the former.  
   
-| ![codeExampleClientDependency](../assets/img/clientRelia.png) |  
+| ![codeExampleClientDependency](../assets/img/clientReliant.png) |  
 | Code Example showing that _send_request_raw()_ method in [Exploit::Remote::HttpClient](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/exploit/remote/http_client.rb#L356-L406) is reliant on _send_recv()_ method in [Rex::Proto::Http::Client](https://github.com/rapid7/metasploit-framework/blob/98b2234cab8cbb60f6907a268f65e69de7b7aae7/lib/rex/proto/http/client.rb#L146-L154) |
   
 | ![codeExampleServerDependency](../assets/img/serverReliant.png) |  
@@ -34,7 +34,9 @@ Thus, results of the analysis proved that a wrapper class can be successfully cr
   
 ## Task 2 : Understanding Flow of Control of Methods  
   
-The library code had various methods sending requests and obtaining responses to an HTTP server. But, All of the methods have something unique in the way they craft the request and the work they perform upon the received responses. For example, **send_request_raw()**, **send_request_cgi()** and **send_request_cgi!()** are three methods of the **Exploit::Remote::Http::Client** Class which essentially send HTTP requests to the designated URI but perform a specific task with their Response. So, the question was "Do we need to make a function call to HTTP-Trace in each of these methods? Wouldn't it be inefficient with so many function calls?".  
+The Server library code is simple, because we have just one method `send_response()` in Rex::Proto::Http::Server which sends the HTTP response to the client. Thus, we can implement HTTP-Trace in the `send_response()` method by making a call to the HTTP-Trace wrapper class in this location.  
+  
+However, the Client library code had various methods sending requests and obtaining responses to an HTTP server. All of the methods have something unique in the way they craft the request and the work they perform upon the received responses. For example, **send_request_raw()**, **send_request_cgi()** and **send_request_cgi!()** are three methods of the **Exploit::Remote::Http::Client** Class which essentially send HTTP requests to the designated URI but perform a specific task with their Response. So, the question was "Do we need to make a function call to HTTP-Trace in each of these methods? Wouldn't it be inefficient with so many function calls?".  
   
 Thus, understanding the flow of control and figuring out the single optimal method where the HTTP-Tracing needs to be implemented was a great challenge.  
   
@@ -53,7 +55,7 @@ The following describes every method of interest and explains their flow:
 | ![flowchart](../assets/img/flowchart.png) |  
 | An infographic showing the Flow of Control of methods |    
   
-Thus, it ultimately comes out to the `_send_recv()` method in Rex::Proto::Http::Client where the HTTP-Tracing needs to be implemented (We can make a function call to the HTTP-Trace wrapper class at this point). All the methods which craft their own requests directly or indirectly call the `_send_recv()` method for sending the request to the server and obtaining the response back!
+Thus, it ultimately comes out to the `_send_recv()` method in Rex::Proto::Http::Client where the HTTP-Tracing needs to be implemented (We can make a function call to the HTTP-Trace wrapper class at this point). All the methods which craft their own requests directly or indirectly call the `_send_recv()` method for sending the request to the server and obtaining the response back!  
   
 ## Task 3 : Objects and Parameters  
   
