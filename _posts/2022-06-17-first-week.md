@@ -1,6 +1,6 @@
 ---
 layout: post
-title: GSoC Coding: Week 1
+title: GSoC Coding Period - Week 1
 subtitle: Analyzing related Library Code
 cover-img: /assets/img/coverSecondPost.jpeg
 share-img: /assets/img/coverSecondPost.jpeg
