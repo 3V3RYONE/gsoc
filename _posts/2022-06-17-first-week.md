@@ -60,6 +60,7 @@ The following describes every method of interest and explains their flow:
   
 The call stack of methods and flow chart shown above depict that `_send_recv()` method is the bottleneck gateway to transmit all requests to the server. All the methods which craft their own requests, directly or indirectly **call** the `_send_recv()` method for sending the request to the server and obtaining the response back! Thus, it ultimately comes out to the `_send_recv()` method in Rex::Proto::Http::Client where the HTTP-Tracing needs to be implemented (We can make a function call to the HTTP-Trace wrapper class at this point).  
   
+[task3AnchorLink](#task-3-:-objects-and-parameters)
 ## Task 3 : Objects and Parameters  
   
 Now that we know where we have to make the function call for HTTP-Trace, we have to determine what objects and parameters are needed to be passed to the function, for effective tracking of HTTP requests and responses. After analyzing the library code, I believe it is sufficient to pass the following parameters for effective tracking:  
