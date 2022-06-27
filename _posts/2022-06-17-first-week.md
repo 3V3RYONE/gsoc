@@ -32,7 +32,7 @@ While analyzing the Client files, i.e. Rex::Proto::Http::Client and Exploit::Rem
   
 On the other hand, analyzing the Server files, i.e. Rex::Proto::Http::Server and Exploit::Remote::HttpServer, showed that the HTTP Server accepts the request sent from the client, reads its data and tries to allocate the resource requested. According to the status of whether the resource allocation was successful or not, the Server sends different types of responses (e.g. 404 error response, 302 redirect response etc.) to the client through its __send_response()__ method. For a developer working upon errors at the server side, it might be necessary to have the particular request, to understand why the HTTP server is not parsing the request correctly. Also, the status returned by the server through its response might be necessary to understand how the resource was allocated to the request. Thus, it is also essential to track both requests and responses on the server side through HTTP-Trace.
   
-Thus, results of the analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the HTTP-Trace method, which are listed in the TASK 3 section.   
+Thus, results of the analysis proved that a wrapper class can be successfully created at Rex::Proto::Http location which can be imported into the above listed libraries. The analysis also found out the necessary register options and parameters needed for the HTTP-Trace method, which are listed in the [TASK 3](https://3v3ryone.github.io/gsoc/2022-06-17-first-week/#task-3-:-objects-and-parameters) section.   
   
 ## Task 2 : Understanding Flow of Control of Methods  
   
@@ -60,7 +60,8 @@ The following describes every method of interest and explains their flow:
   
 The call stack of methods and flow chart shown above depict that `_send_recv()` method is the bottleneck gateway to transmit all requests to the server. All the methods which craft their own requests, directly or indirectly **call** the `_send_recv()` method for sending the request to the server and obtaining the response back! Thus, it ultimately comes out to the `_send_recv()` method in Rex::Proto::Http::Client where the HTTP-Tracing needs to be implemented (We can make a function call to the HTTP-Trace wrapper class at this point).  
   
-[task3AnchorLink](#task-3-:-objects-and-parameters)
+[task3AnchorLink](#task-3-:-objects-and-parameters)  
+  
 ## Task 3 : Objects and Parameters  
   
 Now that we know where we have to make the function call for HTTP-Trace, we have to determine what objects and parameters are needed to be passed to the function, for effective tracking of HTTP requests and responses. After analyzing the library code, I believe it is sufficient to pass the following parameters for effective tracking:  
