@@ -24,7 +24,6 @@ In the process of researching through the codebase, I found that the Exploit::Re
 | Figure 1: Code Example showing that _send_request_raw()_ method in [Exploit::Remote::HttpClient](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/exploit/remote/http_client.rb#L378) is reliant on _send_recv()_ method in [Rex::Proto::Http::Client](https://github.com/rapid7/metasploit-framework/blob/98b2234cab8cbb60f6907a268f65e69de7b7aae7/lib/rex/proto/http/client.rb#L209-L215) |
   
 <br/>
-<br/>
   
 | ![codeExampleServerDependency](../assets/img/serverReliant.png) |  
 | Figure 2: Code example showing that _send_response()_ method in [Exploit::Remote::HttpServer](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/exploit/remote/http_server.rb#L582) is reliant on _send_response()_ method in [Rex::Proto::Http::Server](https://github.com/rapid7/metasploit-framework/blob/98b2234cab8cbb60f6907a268f65e69de7b7aae7/lib/rex/proto/http/server.rb#L35-L45) |  
@@ -75,7 +74,6 @@ Now that we know where we have to make the function call for HTTP-Trace, we have
 | ![sampleMethodCallImage](../assets/img/sampleCallMethod.png) |  
 | <b> Figure 4: Image showing a sample method call to HTTP-Trace method with parameters from the `_send_recv()` method for HTTP Client </b>|  
   
-<br/>
 <br/>  
   
 | ![sampleMethodCallImage](../assets/img/sampleCallMethodServer.png) |  
