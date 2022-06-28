@@ -1,6 +1,6 @@
 ---
 layout: post
-title: GSoC Coding Period - Week 3
+title: GSoC Coding Period - Week 2
 subtitle: Creating the wrapper class with basic functionalities
 cover-img: /assets/img/coverSecondPost.jpeg
 share-img: /assets/img/coverSecondPost.jpeg
@@ -14,7 +14,7 @@ As mentioned in my [last blog post](https://3v3ryone.github.io/gsoc/2022-06-17-f
   
 ## PR Work style
   
-We decided to work on my fork of rapid7/metasploit-framework. A branch `GSoC-add-Http-Trace` was created on my repository: 3V3RYONE/metasploit-framework, which aims to hold all the changes done for my project. We decided to create feature branches on my repo to implement specific functionalities such as `create-wrapper-class`, `add-Http-Trace` etc. The idea is to create a pull request from these unique feature branches on my repo to the central `GSoC-add-Http-Trace` branch on my repo. So, after all the features related to my GSoC project are merged, we make the final pull request from `GSoC-add-Http-Trace` branch on my repo to `master` branch on rapid7/metasploit-framework. This will allow us to track our work better since we can easily review changes done in the single feature branch PRs, and creating a single final pull request at the end to the mainstream repo will be convinient for maintainers to overview the whole GSoC work in a single PR rather than targeting all PRs to merge from unique branch on my repo to master branch on rapid7 repo.  
+We decided to work on my fork of rapid7/metasploit-framework. A branch `GSoC-add-Http-Trace` was created on my repository: 3V3RYONE/metasploit-framework, which aims to hold all the changes done for my project. We decided to create feature branches on my repo to implement specific functionalities such as `create-wrapper-class`, `add-Http-Trace` etc. The idea is to create a pull request from these unique feature branches on my repo to the central `GSoC-add-Http-Trace` branch on my repo. So, after all the features related to my GSoC project are merged, we make the final pull request from `GSoC-add-Http-Trace` branch on my repo to `master` branch on rapid7/metasploit-framework. This will allow us to track our work better since we can easily review changes done in the single feature branch PRs, and creating a single final pull request at the end to the mainstream repo will be convinient for maintainers to overview the whole GSoC work in a single PR, rather than targeting all PRs to rapid7 repo.  
   
 ## Task 1: Creating the wrapper class  
   
@@ -22,7 +22,8 @@ For creating the basic wrapper class, the modules **Rex**, **Proto**, **Http** w
   
 As a part of the inital implementation, the `initialize()` method just prints a static message saying "Object has been created for HTTP-Trace", and the other two methods print the static messages "HTTP-Trace will track the request" and "HTTP-Trace will track the response" respectively. Although the messages aren't much informative, but this step was important as we had to first ensure that a connection could be successfully established whenever the object of the class is initialized or methods of the class are called through the object.  
   
-![Code-example-first-commit-week2-pr](../assets/img/initialWrapperClass.png)  
+| ![Code-example-first-commit-week2-pr](../assets/img/initialWrapperClass.png) |  
+| <b>Figure 1: Code example showing initial implementation done in Rex::Proto::Http::HttpTrace </b>|
   
 ## Task 2: Establishing connection between wrapper class and Client and Server  
   
@@ -30,13 +31,18 @@ After the initial wrapper class was created with the static messages defined in 
   
 Thus, in Rex::Proto::Http::Client, the **http_trace_object** was created by making the object of the wrapper class and the request and response methods were called in the location determined previously, i.e. in `_send_recv()`. For Rex::Proto::Http::Server, the http_trace_object was created separately in two methods (`on_client_data()` and `send_response()`) to track request and response respectively.  
   
-![Code example showing object creation](../assets/img/objectCreationClient.png)  
+| ![Code example showing object creation](../assets/img/objectCreationClient.png) |  
+| <b>Figure 2: Code example showing object creation of Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Client </b>|
   
-![Code example showing object creation](../assets/img/objectCreationServer.png)  
+<br/>
+  
+| ![Code example showing object creation](../assets/img/objectCreationServer.png) |  
+| <b>Figure 3: Code example showing object creation of Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Server </b>|  
   
 The connection was successful and it was verified through the output. That is, now the Client and Server can successfully make a call to the HTTP-Trace wrapper class for tracking their requests and responses.  
   
-![Initial Output](../assets/img/initialOutputHttpTrace.png)  
+| ![Initial Output](../assets/img/initialOutputHttpTrace.png) |  
+| <b>Figure 4: Image showing initial output of HTTP-Trace functionality </b>|  
   
 ## Task 3: Improvements  
   
@@ -44,13 +50,18 @@ Now that I was sure the connection between Rex::Proto::Http::HttpTrace, Rex::Pro
   
 Now, instance variables were created and were used to store these parameters. Instance variables ensure that we can use their value, for the current object in scope, anywhere in the Rex::Proto::Http::HttpTrace class. This improvement also ensures that whenever an object is created for HttpTrace wrapper class, we have the datastore options related to HTTP-Trace ready, and we need not repeatedly pass these options while making a function call now.  
   
-![code-example initialize() method](../assets/img/betterDefnInitialize.png)  
+| ![code-example initialize() method](../assets/img/betterDefnInitialize.png) |  
+| <b>Figure 5: Code example showing improvements in the `initialize()` method of Rex::Proto::Http::HttpTrace </b>|  
   
 Also, the two methods (`use_http_trace_request` and `use_http_trace_response`) of the wrapper class were defined in a better fashion. Now, instead of printing static messages, we are trying to print some information related to the request and response. Firstly, we are checking for the value of the instance variable `@http_trace`, if it's set to true, then only the static messages are printed, else they are not. Along with the static messages, we are printing the **request method** incase of request tracking, and the **response code** in case of response tracking. This was done by accepting an additional parameter **method/code** for request/response respectively. This also removed the redundant parameter **colors** as we need not pass it everytime the method is called.
   
-![code-example two methods](../assets/img/betterDefn2Methods.png)  
+| ![code-example two methods](../assets/img/betterDefn2Methods.png) |  
+| <b>Figure 6: Code example showing improvements in `use_http_trace_request()` and `use_http_trace_response()` methods of Rex::Proto::Http::HttpTrace </b>|  
   
-![code-example revised output](../assets/img/improvedOutput.png)  
+<br/>
+  
+| ![code-example revised output](../assets/img/improvedOutput.png) |  
+| <b>Figure 7: Image showing revised output of HTTP-Trace functionality </b>|    
   
 ALl the work discussed above has been implemented in the feature branch `create-wrapper-class-Week2`of my repo. The pull request from the feature branch to the central GSoC branch was then reviewed by my mentor, following which it was merged to the central branch. You may see the pull request [here](https://github.com/3V3RYONE/metasploit-framework/pull/1) to look at the entire code of the wrapper class.  
   
