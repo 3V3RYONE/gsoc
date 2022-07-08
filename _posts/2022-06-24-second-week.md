@@ -34,12 +34,14 @@ After the initial wrapper class was created, the next task was to utilize this w
 Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **Rex::Proto::Http::Client**, the object of **Rex::Proto::Http::HttpTrace** was created (named **http_trace_object**) in the `_send_recv()` method and the **use_http_trace_request()** and **use_http_trace_response()** methods were invoked through this object. For **Rex::Proto::Http::Server**, the http_trace_object was created separately in two methods (`on_client_data()` and `send_response()`) to track request and response respectively.  
   
 | ![Code example showing object creation](../assets/img/objectCreationClient.png) |  
-| <b>Figure 2: Code example showing object creation of Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Client </b>|
+| <b>Figure 2: Code example showing object creation of </b>|
+ <b>Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Client </b>|
   
 <br/>
   
 | ![Code example showing object creation](../assets/img/objectCreationServer.png) |  
-| <b>Figure 3: Code example showing object creation of Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Server </b>|  
+| <b>Figure 3: Code example showing object creation of </b>|
+ <b>Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Server </b>|  
   
 The connection was successful and it was verified through the output. That is, now the Client and Server can successfully make a call to the HTTP-Trace wrapper class for tracking their requests and responses.  
   
@@ -54,12 +56,15 @@ Now that I was sure the connection between **Rex::Proto::Http::HttpTrace**, **Re
 Now, instance variables were created and were used to store these parameters. Instance variables ensure that we can use their value, for the current object in scope, anywhere in the **Rex::Proto::Http::HttpTrace** class. This improvement also ensures that whenever an object is created for HttpTrace wrapper class, we have the datastore options related to HTTP-Trace ready, and we need not repeatedly pass these options while making a function call now.  
   
 | ![code-example initialize() method](../assets/img/betterDefnInitialize.png) |  
-| <b>Figure 5: Code example showing improvements in the `initialize()` method of Rex::Proto::Http::HttpTrace </b>|  
+| <b>Figure 5: Code example showing improvements in the `initialize()` method </b>|
+ <b>of Rex::Proto::Http::HttpTrace </b>|  
   
 Also, the two methods (`use_http_trace_request` and `use_http_trace_response`) of the wrapper class were defined in a better fashion. Now, instead of printing static messages, we are trying to print some information related to the request and response. Firstly, we are checking for the value of the instance variable `@http_trace`, if it's set to true, then only the static messages are printed, else they are not. Along with the static messages, we are printing the **request method** in case of request tracking and the **response code** in case of response tracking. This was done by accepting an additional parameter **method/code** for request/response respectively. This also removed the redundant parameter **colors** as we need not pass it every time the method is called.
   
 | ![code-example two methods](../assets/img/betterDefn2Methods.png) |  
-| <b>Figure 6: Code example showing improvements in `use_http_trace_request()` and `use_http_trace_response()` methods of Rex::Proto::Http::HttpTrace </b>|  
+| <b>Figure 6: Code example showing improvements in </b>|
+ <b>`use_http_trace_request()` and `use_http_trace_response()` methods </b>|
+ <b>of Rex::Proto::Http::HttpTrace </b>|  
   
 <br/>
   
