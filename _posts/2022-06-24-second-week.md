@@ -46,7 +46,8 @@ Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **
 The connection was successful and it was verified through the output. That is, now the Client and Server can successfully make a call to the HTTP-Trace wrapper class for tracking their requests and responses.  
   
 | ![Initial Output](../assets/img/initialOutputHttpTrace.png) |  
-| <b>Figure 4: Image showing the initial output of HTTP-Trace functionality </b>|  
+| <b>Figure 4: Image showing the initial output of HTTP-Trace functionality </b>|
+ <b> which verifies the established connection </b>|  
   
 <br />
 ## Task 3: Improvements  
@@ -71,14 +72,14 @@ Also, the two methods (`use_http_trace_request` and `use_http_trace_response`) o
 | ![code-example revised output](../assets/img/improvedOutput.png) |  
 | <b>Figure 7: Image showing the revised output of HTTP-Trace functionality </b>|    
   
-All the work discussed above has been implemented in the feature branch `create-wrapper-class-Week2`of my repo. The pull request from the feature branch to the central GSoC branch was then reviewed by my mentor, following which it was merged into the central branch. You may see the pull request [here](https://github.com/3V3RYONE/metasploit-framework/pull/1) to look at the entire code of the wrapper class.  
+All the work discussed above has been implemented in the feature branch `create-wrapper-class-Week2`of my repo. The pull request from the feature branch to the central GSoC branch was then reviewed by my mentor, following which it was merged into the central branch. You may see the [pull request](https://github.com/3V3RYONE/metasploit-framework/pull/1) to look at the entire code of the wrapper class.  
   
 ## Note
   
-Currently, the requests and responses are directly not printed to the msfconsole in the methods of **Rex::Proto::Http::HttpTrace** wrapper class because the HttpTrace datastore option is implemented in the **Exploit::Remote::HttpClient** mixin. So, now, even if we **set HTTP-Trace=false** in msfconsole, we would still get the requests and responses tracked to msfconsole because the datastore option does not point to the **Rex::Proto::Http::HttpTrace** wrapper class now. Thus, the full functionality of printing requests and responses isn't implemented now in HTTP-Trace methods to prevent this anomaly, and they will be implemented once the datastore options have been ported from **Exploit::Remote::HttpClient** to **Rex::Proto::Http::Client**.  
+Currently, the requests and responses are directly not printed to the console in the methods of **Rex::Proto::Http::HttpTrace** wrapper class because the HttpTrace datastore option is implemented in the **Exploit::Remote::HttpClient** mixin. So, now, even if we **set HTTP-Trace=false** in msfconsole, we would still get the requests and responses tracked to msfconsole because the datastore option does not point to the **Rex::Proto::Http::HttpTrace** wrapper class now. Thus, the full functionality of printing requests and responses isn't implemented now in HTTP-Trace methods to prevent this anomaly, and they will be implemented once the datastore options have been ported from **Exploit::Remote::HttpClient** to **Rex::Proto::Http::Client**.  
   
 ## Conclusion  
   
-It's a wrap for Week 2 :) The **Rex::Proto::Http::HttpTrace** wrapper class created here lays the base for the additional functionalities to be added in upcoming weeks. This also successfully established the connection between HttpTrace class with the Client and Server class. Thus, our next plan in Week 3 is to implement the full HTTP-Trace functionalities in the methods of these wrapper class and implement the datastore options in the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** to make the msfconsole work with the HttpTrace wrapper class.  
+It's a wrap for Week 2 :) The **Rex::Proto::Http::HttpTrace** wrapper class created here lays the base for the additional functionalities to be added in upcoming weeks. This also successfully established the connection between HttpTrace class with the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** class. Thus, our next plan in Week 3 is to implement the full HTTP-Trace functionalities in the **use_http_trace_request()** and **use_http_trace_response()** methods of the **Rex::Proto::Http::HttpTrace** wrapper class and implement the datastore options in the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** to make msfconsole work with the HttpTrace wrapper class.  
   
 Catch you up in the third week! :)  
