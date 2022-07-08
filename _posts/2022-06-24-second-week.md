@@ -31,7 +31,7 @@ As a part of the initial implementation, the `initialize()` method just prints a
   
 After the initial wrapper class was created, the next task was to utilize this wrapper class's functionality in the Client and Server library files, i.e. to establish the connection between those classes. This was done by creating an object of the **Rex::Proto::Http::HttpTrace** class in **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** and calling the methods of the **Rex::Proto::Http::HttpTrace** class for tracking requests and responses by passing appropriate parameters.  
   
-Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **Rex::Proto::Http::Client**, the object of **Rex::Proto::Http::HttpTrace** was created (named **http_trace_object**) in the `_send_recv()` method and the **use_http_trace_request()** and **use_http_trace_response()** methods were invoked through this object. For **Rex::Proto::Http::Server**, the http_trace_object was created separately in two methods (`on_client_data()` and `send_response()`) to track request and response respectively.  
+Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **Rex::Proto::Http::Client**, the object of **Rex::Proto::Http::HttpTrace** was created (named **http_trace_object**) in the `_send_recv()` method of **Rex::Proto::Http::Client**, and the `use_http_trace_request()` and `use_http_trace_response()` methods were invoked through this object. Similarly, to establish the connection between **Rex::Proto::Http::HttpTrace** and **Rex::Proto::Http::Server**, the object of **Rex::Proto::Http::HttpTrace** was created (named **http_trace_object**) in two methods (`on_client_data()` and `send_response()`) of **Rex::Proto::Http::Server**, and the `use_http_trace_request()` and `use_http_trace_response()` methods were invoked through this object.  
   
 | ![Code example showing object creation](../assets/img/objectCreationClient.png) |  
 | <b>Figure 2: Code example showing object creation of </b>|
@@ -43,7 +43,7 @@ Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **
 | <b>Figure 3: Code example showing object creation of </b>|
  <b>Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Server </b>|  
   
-The connection was successful and it was verified through the output. That is, now the Client and Server can successfully make a call to the HTTP-Trace wrapper class for tracking their requests and responses.  
+The connection was successful and it was verified through the output (see Figure 4). That is, now the Client and Server can successfully make a call to the HTTP-Trace wrapper class for tracking their requests and responses.  
   
 | ![Initial Output](../assets/img/initialOutputHttpTrace.png) |  
 | <b>Figure 4: Image showing the initial output of HTTP-Trace functionality </b>|
@@ -52,20 +52,20 @@ The connection was successful and it was verified through the output. That is, n
 <br />
 ## Task 3: Improvements  
   
-Now that I was sure the connection between **Rex::Proto::Http::HttpTrace**, **Rex::Proto::Http::Client**, and **Rex::Proto::Http::Server** was established, I worked upon giving a more relevant and meaningful definition to the methods of the wrapper class. The `initialize()` method now takes the datastore parameters like HttpTrace, HttpTraceHeadersOnly and HttpTraceColors. HttpTrace parameter stores whether HttpTracing is enabled in msfconsole. HttpTraceHeadersOnly parameter stores whether only the HTTP Headers are needed to be tracked to msfconsole. HttpTraceColors stores the pair of colors to be used for printing requests and responses intuitively.  
+Now that I was sure the connection between **Rex::Proto::Http::HttpTrace**, **Rex::Proto::Http::Client**, and **Rex::Proto::Http::Server** was established, I worked upon giving a more relevant and meaningful definition to the `use_http_trace_request()` and `use_http_trace_response()` methods of the wrapper class. The `initialize()` method now takes the datastore parameters like HttpTrace, HttpTraceHeadersOnly and HttpTraceColors. The HttpTrace parameter stores a boolean denoting whether HttpTracing is enabled in msfconsole. HttpTraceHeadersOnly parameter stores a boolean flag denoting whether only the HTTP Headers should be printed to the console. The HttpTraceColors parameter stores a string which denotes the pair of colors (separated by a `/`), to be used for printing requests and responses intuitively.  
   
-Now, instance variables were created and were used to store these parameters. Instance variables ensure that we can use their value, for the current object in scope, anywhere in the **Rex::Proto::Http::HttpTrace** class. This improvement also ensures that whenever an object is created for HttpTrace wrapper class, we have the datastore options related to HTTP-Trace ready, and we need not repeatedly pass these options while making a function call now.  
+Next, instance variables were created and were used to store these parameters. Instance variables ensure that we can use their value anywhere in the **Rex::Proto::Http::HttpTrace** class, for the current object in scope. This means the value of these parameters would be unique for every object of the **Rex::Proto::Http::HttpTrace** class created. This improvement also ensures that whenever an object is created for HttpTrace wrapper class, we have the datastore options related to HTTP-Trace ready, and we need not repeatedly pass these options while making a function call now.  
   
 | ![code-example initialize() method](../assets/img/betterDefnInitialize.png) |  
 | <b>Figure 5: Code example showing improvements in the `initialize()` method </b>|
  <b>of Rex::Proto::Http::HttpTrace </b>|  
   
-Also, the two methods (`use_http_trace_request` and `use_http_trace_response`) of the wrapper class were defined in a better fashion. Now, instead of printing static messages, we are trying to print some information related to the request and response. Firstly, we are checking for the value of the instance variable `@http_trace`, if it's set to true, then only the static messages are printed, else they are not. Along with the static messages, we are printing the **request method** in case of request tracking and the **response code** in case of response tracking. This was done by accepting an additional parameter **method/code** for request/response respectively. This also removed the redundant parameter **colors** as we need not pass it every time the method is called.
+Also, the two methods (`use_http_trace_request` and `use_http_trace_response`) of the wrapper class were defined in a better fashion. Now, instead of printing static messages, we are trying to print some information related to the request and response. First, we check the value of the instance variable `@http_trace`, if it's set to true, then only the static messages are printed, else they are not. Along with the static messages, we are printing the **request method** in case of request tracking and the **response code** in case of response tracking. This was done by accepting an additional parameter **method/code** for request/response respectively. This also removed the redundant parameter **colors** as we need not pass it every time the method is called.
   
 | ![code-example two methods](../assets/img/betterDefn2Methods.png) |  
 | <b>Figure 6: Code example showing improvements in </b>|
- <b>`use_http_trace_request()` and `use_http_trace_response()` methods </b>|
- <b>of Rex::Proto::Http::HttpTrace </b>|  
+ <b>`use_http_trace_request()` and `use_http_trace_response()` </b>|
+ <b>methods of Rex::Proto::Http::HttpTrace </b>|  
   
 <br/>
   
@@ -80,6 +80,6 @@ Currently, the requests and responses are directly not printed to the console in
   
 ## Conclusion  
   
-It's a wrap for Week 2 :) The **Rex::Proto::Http::HttpTrace** wrapper class created here lays the base for the additional functionalities to be added in upcoming weeks. This also successfully established the connection between HttpTrace class with the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** class. Thus, our next plan in Week 3 is to implement the full HTTP-Trace functionalities in the **use_http_trace_request()** and **use_http_trace_response()** methods of the **Rex::Proto::Http::HttpTrace** wrapper class and implement the datastore options in the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** to make msfconsole work with the HttpTrace wrapper class.  
+It's a wrap for Week 2 :) The **Rex::Proto::Http::HttpTrace** wrapper class created here lays the base for the additional functionalities to be added in upcoming weeks. This also successfully established the connection between HttpTrace class with the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** class. Thus, our next plan in Week 3 is to implement the full HTTP-Trace functionalities in the `use_http_trace_request()` and `use_http_trace_response()` methods of the **Rex::Proto::Http::HttpTrace** wrapper class and implement the datastore options in the **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** to make msfconsole work with the HttpTrace wrapper class.  
   
 Catch you up in the third week! :)  
