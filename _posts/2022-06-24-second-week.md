@@ -23,14 +23,15 @@ Now, we have a name to our wrapper class: **Rex::Proto::Http::HttpTrace**. Curre
 As a part of the initial implementation, the `initialize()` method just prints a static message saying _"Object has been created for HTTP-Trace"_, and the other two methods print the static messages _"HTTP-Trace will track the request"_ and _"HTTP-Trace will track the response"_ respectively. Although the messages aren't much informative, this step was important as we had to first ensure that a connection could be successfully established whenever the object of the class is initialized or methods of the class are called through the object.  
   
 | ![Code-example-first-commit-week2-pr](../assets/img/initialWrapperClass.png) |
-| <b>Figure 1: Code example showing initial implementation done in
- Rex::Proto::Http::HttpTrace </b>|
+| <b>Figure 1: Code example showing initial implementation done in</b>
+ <b>Rex::Proto::Http::HttpTrace </b>|
   
+<br />
 ## Task 2: Establishing the connection between wrapper class and Client and Server  
   
-After the initial wrapper class was created, the next task was to utilize this wrapper class's functionality in the Client and Server library files. This was done by creating an object of the **Rex::Proto::Http::HttpTrace** class in **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** and calling the methods of the **Rex::Proto::Http::HttpTrace** class for tracking requests and responses by passing appropriate parameters.  
+After the initial wrapper class was created, the next task was to utilize this wrapper class's functionality in the Client and Server library files, i.e. to establish the connection between those classes. This was done by creating an object of the **Rex::Proto::Http::HttpTrace** class in **Rex::Proto::Http::Client** and **Rex::Proto::Http::Server** and calling the methods of the **Rex::Proto::Http::HttpTrace** class for tracking requests and responses by passing appropriate parameters.  
   
-Thus, in **Rex::Proto::Http::Client**, the **http_trace_object** was created by making the object of the wrapper class and the request and response methods were called in the location determined previously, i.e. in `_send_recv()`. For **Rex::Proto::Http::Server**, the http_trace_object was created separately in two methods (`on_client_data()` and `send_response()`) to track request and response respectively.  
+Thus, to establish the connection between **Rex::Proto::Http::HttpTrace** and **Rex::Proto::Http::Client**, the object of **Rex::Proto::Http::HttpTrace** was created (named **http_trace_object**) in the `_send_recv()` method and the **use_http_trace_request()** and **use_http_trace_response()** methods were invoked through this object. For **Rex::Proto::Http::Server**, the http_trace_object was created separately in two methods (`on_client_data()` and `send_response()`) to track request and response respectively.  
   
 | ![Code example showing object creation](../assets/img/objectCreationClient.png) |  
 | <b>Figure 2: Code example showing object creation of Rex::Proto::Http::HttpTrace class in Rex::Proto::Http::Client </b>|
