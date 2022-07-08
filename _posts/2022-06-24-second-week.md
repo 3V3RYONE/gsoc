@@ -23,10 +23,7 @@ Now, we have a name to our wrapper class: **Rex::Proto::Http::HttpTrace**. Curre
 As a part of the initial implementation, the `initialize()` method just prints a static message saying _"Object has been created for HTTP-Trace"_, and the other two methods print the static messages _"HTTP-Trace will track the request"_ and _"HTTP-Trace will track the response"_ respectively. Although the messages aren't much informative, this step was important as we had to first ensure that a connection could be successfully established whenever the object of the class is initialized or methods of the class are called through the object.  
   
 | ![Code-example-first-commit-week2-pr](../assets/img/initialWrapperClass.png) |
-
-|:--:|  
-
-| <b>Figure 1: Code example showing initial implementation done in Rex::Proto::Http::HttpTrace </b>|
+| <b>Figure 1: Code example showing initial implementation done in Rex::Proto:: Http::HttpTrace </b>|
   
 ## Task 2: Establishing the connection between wrapper class and Client and Server  
   
@@ -47,6 +44,7 @@ The connection was successful and it was verified through the output. That is, n
 | ![Initial Output](../assets/img/initialOutputHttpTrace.png) |  
 | <b>Figure 4: Image showing the initial output of HTTP-Trace functionality </b>|  
   
+<br />
 ## Task 3: Improvements  
   
 Now that I was sure the connection between **Rex::Proto::Http::HttpTrace**, **Rex::Proto::Http::Client**, and **Rex::Proto::Http::Server** was established, I worked upon giving a more relevant and meaningful definition to the methods of the wrapper class. The `initialize()` method now takes the datastore parameters like HttpTrace, HttpTraceHeadersOnly and HttpTraceColors. HttpTrace parameter stores whether HttpTracing is enabled in msfconsole. HttpTraceHeadersOnly parameter stores whether only the HTTP Headers are needed to be tracked to msfconsole. HttpTraceColors stores the pair of colors to be used for printing requests and responses intuitively.  
