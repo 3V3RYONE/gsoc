@@ -23,7 +23,8 @@ Now, we have a name to our wrapper class: **Rex::Proto::Http::HttpTrace**. Curre
 As a part of the initial implementation, the `initialize()` method just prints a static message saying _"Object has been created for HTTP-Trace"_, and the other two methods print the static messages _"HTTP-Trace will track the request"_ and _"HTTP-Trace will track the response"_ respectively. Although the messages aren't much informative, this step was important as we had to first ensure that a connection could be successfully established whenever the object of the class is initialized or methods of the class are called through the object.  
   
 | ![Code-example-first-commit-week2-pr](../assets/img/initialWrapperClass.png) |
-| <b>Figure 1: Code example showing initial implementation done in Rex::Proto:: Http::HttpTrace </b>|
+| <b>Figure 1: Code example showing initial implementation done in
+ Rex::Proto::Http::HttpTrace </b>|
   
 ## Task 2: Establishing the connection between wrapper class and Client and Server  
   
